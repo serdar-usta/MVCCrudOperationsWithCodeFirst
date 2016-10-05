@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model MvcCrudWithCodeFirst.Models.Teacher
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Eğitmenler
+                <small>/ Yeni Eğitmen</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i>  <a href="/">Giriş</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-file"></i> Yeni Eğitmen
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-8 col-md-6 col-lg-4">
+
+            <div class="alert alert-danger">
+                Aşağıdaki eğitmen silinecek. İşlemi onaylıyor musunuz?
+            </div>
+
+            @using (Html.BeginForm("Delete", "Teacher", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.Id)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName, "Adı")
+                    @Html.DisplayFor(m => m.FirstName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LastName, "Soyadı")
+                    @Html.DisplayFor(m => m.LastName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Proficiency, "Uzmanlık")
+                    @Html.DisplayFor(m => m.Proficiency)
+                </div>
+                <div class="form-group pull-right">
+                    @Html.ActionLink("İptal", "Index", null, new { @class = "btn btn-warning" })
+                    <button type="submit" class="btn btn-primary">
+                        Onayla
+                    </button>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <!-- /.row -->
+</div>

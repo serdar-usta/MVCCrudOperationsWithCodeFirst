@@ -1,0 +1,81 @@
+﻿@model List<MvcCrudWithCodeFirst.Models.Lesson>
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div style="margin: 0 0 10px 0;" class="pull-right">
+            @Html.ActionLink("Yeni Ekle", "CreatePartial", null, new { @class = "btn btn-default btn-sm", id = "create_new_button" })
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Adı</th>
+                    <th>Eğitmeni</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lesson in Model)
+                {
+                    <tr>
+                        <td>@lesson.Id</td>
+                        <td>@lesson.Name</td>
+                        <td>@lesson.Teacher.FullName</td>
+                        <td>@Html.ActionLink("Düzenle", "Edit", new { id = lesson.Id })</td>
+                        <td>@Html.ActionLink("Sil", "Delete", new { id = lesson.Id })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script>
+
+    $('#create_new_button').click(function (e) {
+
+        e.preventDefault();
+
+        //alert('tıklandı');
+
+        $.ajax({
+            url: this.href,
+            success: function (response) {
+
+                document.getElementById('page_inner_content').innerHTML = response + document.getElementById('page_inner_content').innerHTML;
+
+                $('#save_lesson').click(function () {
+
+                    console.log('button click çalıştı');
+
+                    var ajaxOptions = {
+                        url: '/Lesson/CreatePartial',
+                        type: 'post',
+                        data: {
+                            Name: $('#Name').val(),
+                            TeacherId: $('#TeacherId').val()
+                        },
+                        success: function (result) {
+
+                            $('#page_inner_content').html(result);
+
+                        }
+                    };
+
+                    $.ajax(ajaxOptions);
+
+                });
+
+
+            }
+        });
+
+
+
+    });
+
+</script>

@@ -1,0 +1,32 @@
+﻿@model MvcCrudWithCodeFirst.Models.Lesson
+
+<div class="row">
+    <div class="col-xs-8 col-md-6 col-lg-4">
+
+        <form method="post" action="@Url.Action("CreatePartial", "Lesson")">
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.Name, "Adı")
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.TeacherId, "Eğitmen")
+                @Html.DropDownListFor(m => m.TeacherId, (SelectList)ViewBag.TeachersList, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group pull-right">
+
+                <button id="save_lesson" type="button" class="btn btn-primary">
+                    Kaydet
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

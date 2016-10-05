@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<MvcCrudWithCodeFirst.Models.Student>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Öğrenci
+                <small>/ Tüm Öğrenciler</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i>  <a href="/">Giriş</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-file"></i> Öğrenciler
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    @if (TempData["ResultMessage"] != null)
+    {
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-success">
+                    @TempData["ResultMessage"]
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (TempData["StudentEntity"] != null)
+    {
+        <div class="row">
+            <div class="col-xs-12">
+                <p>
+                    @{
+        MvcCrudWithCodeFirst.Models.Student student = (MvcCrudWithCodeFirst.Models.Student)TempData["StudentEntity"];
+        //TempData.Keep("StudentEntity");
+                    }
+
+                    Son işlem gören kayıt: @student.FirstName @student.LastName
+                </p>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div style="margin-bottom: 10px;" class="pull-right">
+                @Html.ActionLink("Yeni Öğrenci", "Create", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+        <div class="col-xs-12">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Adı</th>
+                        <th>Soyadı</th>
+                        <th>Öğretmeni</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model)
+                    {
+                        <tr>
+                            <td>@student.Id</td>
+                            <td>@student.FirstName</td>
+                            <td>@student.LastName</td>
+                            <td>@student.Teacher.FirstName</td>
+                            <td>@Html.ActionLink("Düzenle", "Edit", new { Id = student.Id })</td>
+                            <td>@Html.ActionLink("Sil", "Delete", new { Id = student.Id })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+
